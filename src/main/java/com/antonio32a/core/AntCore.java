@@ -15,11 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 @Slf4j
 public final class AntCore extends JavaPlugin {
     @Getter private static AntCore instance;
+    @Getter private AnnotationParser<Player> commandParser;
     private PaperCommandManager<Player> commandManager;
 
     @Override
@@ -38,19 +38,19 @@ public final class AntCore extends JavaPlugin {
             log.error("Failed to initialize command manager", exception);
         }
 
-        AnnotationParser<Player> parser = new AnnotationParser<>(
+        commandParser = new AnnotationParser<>(
             commandManager,
             Player.class,
             params -> SimpleCommandMeta.empty()
         );
 
-        registerCommands(parser);
+        registerCommands();
         registerListeners();
     }
 
-    private void registerCommands(@NotNull AnnotationParser<Player> parser) {
-        parser.parse(new ProfileCommands());
-        parser.parse(new HungerCommands());
+    private void registerCommands() {
+        commandParser.parse(new ProfileCommands());
+        commandParser.parse(new HungerCommands());
     }
 
     private void registerListeners() {
