@@ -1,0 +1,8 @@
+name: $name
+version: $version
+main: com.antonio32a.core.AntCore
+description: $description
+load: STARTUP
+authors:
+    - Antonio32A
+api-version: $apiVersion
