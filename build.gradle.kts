@@ -14,6 +14,7 @@ description = "Ant Core"
 java {
     // Configure the java toolchain. This allows gradle to auto-provision JDK 17 on systems that only have JDK 8 installed for example.
     toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    withSourcesJar()
 }
 
 repositories {
@@ -43,19 +44,11 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            from(components["java"])
-        }
-    }
-}
-
-tasks.getByName<Test>("test") {
-    useJUnitPlatform()
-}
-
 tasks {
+    test {
+        useJUnitPlatform()
+    }
+
     // Configure reobfJar to run when invoking the build task
     assemble {
         dependsOn(reobfJar)
@@ -85,6 +78,17 @@ tasks {
         inputs.properties(props)
         filesMatching("plugin.yml") {
             expand(props)
+        }
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            artifact(tasks["shadowJar"]) {
+                classifier = ""
+            }
+            artifact(tasks["sourcesJar"])
         }
     }
 }
