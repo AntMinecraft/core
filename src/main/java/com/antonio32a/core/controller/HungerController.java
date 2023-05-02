@@ -25,7 +25,7 @@ public final class HungerController extends StatController {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onHungerUpdate(FoodLevelChangeEvent event) {
+    private void onHungerUpdate(FoodLevelChangeEvent event) {
         if (disabledPlayers.contains(event.getEntity().getUniqueId())) {
             event.setCancelled(true);
         }
