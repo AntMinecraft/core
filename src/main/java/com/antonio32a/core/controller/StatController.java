@@ -1,17 +1,19 @@
 package com.antonio32a.core.controller;
 
+import com.antonio32a.core.util.Packets;
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import org.bukkit.craftbukkit.v1_19_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPotionEffectEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
@@ -24,6 +26,7 @@ import java.util.UUID;
 
 /**
  * Allows disabling stats and the corresponding bars for players.
+ * Unlike HealthController, this must NOT be enabled in {@link PlayerLoginEvent} (otherwise it won't apply the effect).
  * <p>
  * If you wish to implement your own you can extend this class and then register the corresponding events,
  * e.g. {@link EntityDamageEvent} for health.
@@ -93,7 +96,19 @@ public abstract class StatController implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onPlayerEffect(EntityPotionEffectEvent event) {
+    private void onPlayerRespawn(PlayerRespawnEvent event) {
+        if (disabledPlayers.contains(event.getPlayer().getUniqueId())) {
+            addPotionEffect(event.getPlayer());
+        }
+    }
+
+    @EventHandler
+    private void onPlayerQuit(PlayerQuitEvent event) {
+        disabledPlayers.remove(event.getPlayer().getUniqueId());
+    }
+
+    @EventHandler(priority = EventPriority.HIGH)
+    private void onPlayerEffect(EntityPotionEffectEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
         if (!disabledPlayers.contains(player.getUniqueId())) return;
 
@@ -108,14 +123,10 @@ public abstract class StatController implements Listener {
         event.setCancelled(true);
     }
 
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
-        disabledPlayers.remove(event.getPlayer().getUniqueId());
-    }
-
     private void addPotionEffect(@NotNull Player player) {
         if (effectInstance == null) return;
-        ((CraftPlayer) player).getHandle().connection.send(
+        Packets.sendPacket(
+            player,
             new ClientboundUpdateMobEffectPacket(
                 player.getEntityId(),
                 effectInstance
@@ -125,7 +136,8 @@ public abstract class StatController implements Listener {
 
     private void removePotionEffect(@NotNull Player player) {
         if (effect == null) return;
-        ((CraftPlayer) player).getHandle().connection.send(
+        Packets.sendPacket(
+            player,
             new ClientboundRemoveMobEffectPacket(
                 player.getEntityId(),
                 effect
