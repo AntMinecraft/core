@@ -96,19 +96,19 @@ public abstract class StatController implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    private void onPlayerRespawn(PlayerRespawnEvent event) {
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
         if (disabledPlayers.contains(event.getPlayer().getUniqueId())) {
             addPotionEffect(event.getPlayer());
         }
     }
 
     @EventHandler
-    private void onPlayerQuit(PlayerQuitEvent event) {
+    public void onPlayerQuit(PlayerQuitEvent event) {
         disabledPlayers.remove(event.getPlayer().getUniqueId());
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    private void onPlayerEffect(EntityPotionEffectEvent event) {
+    public void onPlayerEffect(EntityPotionEffectEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
         if (!disabledPlayers.contains(player.getUniqueId())) return;
 
