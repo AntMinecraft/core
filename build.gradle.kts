@@ -54,6 +54,10 @@ tasks {
         dependsOn(reobfJar)
     }
 
+    reobfJar {
+        outputJar.set(layout.buildDirectory.file("libs/${project.name}.jar"))
+    }
+
     compileJava {
         options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
 

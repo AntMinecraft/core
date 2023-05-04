@@ -20,11 +20,23 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public final class Packets {
-    private static final NMSClassResolver RESOLVER = new NMSClassResolver();
-    private static final Class<?> SERVER_PLAYER = RESOLVER.resolveSilent("ServerPlayer", "server.level.ServerPlayer");
-    private static final Class<?> TEXT_FILTER = RESOLVER.resolveSilent("TextFilter", "server.network.TextFilter");
-    private static final FieldResolver PLAYER_FIELD_RESOLVER = new FieldResolver(SERVER_PLAYER);
-    private static final FieldAccessor TEXT_FILTER_ACCESSOR = PLAYER_FIELD_RESOLVER.resolveByFirstTypeAccessor(TEXT_FILTER);
+    private static final FieldAccessor TEXT_FILTER_ACCESSOR;
+
+    static {
+        NMSClassResolver resolver = new NMSClassResolver();
+
+        try {
+            Class<?> serverPlayer = resolver.resolve("ServerPlayer", "server.level.EntityPlayer");
+            Class<?> textFilter = resolver.resolve("TextFilter", "server.network.ITextFilter");
+            FieldResolver playerFieldResolver = new FieldResolver(serverPlayer);
+            TEXT_FILTER_ACCESSOR = playerFieldResolver.resolveByFirstTypeAccessor(textFilter);
+        } catch (ClassNotFoundException exception) {
+            throw new IllegalStateException(
+                "Failed to resolve packet classes needed for early channel injection",
+                exception
+            );
+        }
+    }
 
     private Packets() {}
 
