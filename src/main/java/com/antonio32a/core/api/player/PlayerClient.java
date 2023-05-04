@@ -1,7 +1,7 @@
-package com.antonio32a.core.data.player;
+package com.antonio32a.core.api.player;
 
-import com.antonio32a.core.data.config.Config;
-import com.antonio32a.core.data.config.ConfigLoader;
+import com.antonio32a.core.api.config.Config;
+import com.antonio32a.core.api.config.ConfigLoader;
 import com.antonio32a.privateapi.data.PlayerProfile;
 import com.antonio32a.privateapi.responses.ErrorResponse;
 import com.antonio32a.privateapi.responses.Response;

@@ -1,4 +1,4 @@
-package com.antonio32a.core.data.player;
+package com.antonio32a.core.api.player;
 
 import com.antonio32a.privateapi.data.PlayerProfile;
 import lombok.extern.slf4j.Slf4j;

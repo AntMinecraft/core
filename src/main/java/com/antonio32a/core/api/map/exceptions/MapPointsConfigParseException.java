@@ -1,4 +1,4 @@
-package com.antonio32a.core.data.map.exceptions;
+package com.antonio32a.core.api.map.exceptions;
 
 public class MapPointsConfigParseException extends RuntimeException {
     public MapPointsConfigParseException(Throwable cause) {

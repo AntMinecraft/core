@@ -5,7 +5,7 @@ import cloud.commandframework.annotations.CommandMethod;
 import cloud.commandframework.annotations.CommandPermission;
 import cloud.commandframework.annotations.suggestions.Suggestions;
 import cloud.commandframework.context.CommandContext;
-import com.antonio32a.core.data.player.PlayerCache;
+import com.antonio32a.core.api.player.PlayerCache;
 import com.antonio32a.privateapi.data.PlayerProfile;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;

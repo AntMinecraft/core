@@ -1,4 +1,4 @@
-package com.antonio32a.core.controller;
+package com.antonio32a.core.api.stat;
 
 import com.antonio32a.core.util.Packets;
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;

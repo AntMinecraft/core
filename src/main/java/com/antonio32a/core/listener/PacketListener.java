@@ -19,7 +19,6 @@ import org.jetbrains.annotations.NotNull;
 
 @Slf4j
 public final class PacketListener implements Listener {
-
     @SuppressWarnings("unchecked")
     @EventHandler(priority = EventPriority.HIGH)
     public void onLogin(PlayerLoginEvent event) {

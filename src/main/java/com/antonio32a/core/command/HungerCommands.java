@@ -2,7 +2,7 @@ package com.antonio32a.core.command;
 
 import cloud.commandframework.annotations.CommandMethod;
 import cloud.commandframework.annotations.CommandPermission;
-import com.antonio32a.core.controller.HungerController;
+import com.antonio32a.core.api.stat.HungerController;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

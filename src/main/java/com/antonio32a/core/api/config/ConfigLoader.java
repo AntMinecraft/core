@@ -1,4 +1,4 @@
-package com.antonio32a.core.data.config;
+package com.antonio32a.core.api.config;
 
 import com.google.gson.Gson;
 import lombok.Getter;

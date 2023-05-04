@@ -1,7 +1,7 @@
 package com.antonio32a.core.listener;
 
 import com.antonio32a.core.AntCore;
-import com.antonio32a.core.data.player.PlayerCache;
+import com.antonio32a.core.api.player.PlayerCache;
 import com.antonio32a.privateapi.data.PlayerProfile;
 import lombok.extern.slf4j.Slf4j;
 import net.kyori.adventure.text.Component;

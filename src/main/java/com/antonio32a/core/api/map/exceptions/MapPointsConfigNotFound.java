@@ -1,4 +1,4 @@
-package com.antonio32a.core.data.map.exceptions;
+package com.antonio32a.core.api.map.exceptions;
 
 import java.nio.file.Path;
 

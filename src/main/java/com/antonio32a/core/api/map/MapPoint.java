@@ -1,4 +1,4 @@
-package com.antonio32a.core.data.map;
+package com.antonio32a.core.api.map;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

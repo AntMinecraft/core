@@ -1,4 +1,4 @@
-package com.antonio32a.core.controller;
+package com.antonio32a.core.api.stat;
 
 import net.minecraft.world.effect.MobEffects;
 import org.bukkit.event.EventHandler;

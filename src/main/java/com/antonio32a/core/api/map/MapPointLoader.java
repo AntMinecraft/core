@@ -1,10 +1,10 @@
-package com.antonio32a.core.data.map;
+package com.antonio32a.core.api.map;
 
-import com.antonio32a.core.data.config.Config;
-import com.antonio32a.core.data.config.ConfigLoader;
-import com.antonio32a.core.data.map.exceptions.MapPointNotDefinedException;
-import com.antonio32a.core.data.map.exceptions.MapPointsConfigNotFound;
-import com.antonio32a.core.data.map.exceptions.MapPointsConfigParseException;
+import com.antonio32a.core.api.config.Config;
+import com.antonio32a.core.api.config.ConfigLoader;
+import com.antonio32a.core.api.map.exceptions.MapPointNotDefinedException;
+import com.antonio32a.core.api.map.exceptions.MapPointsConfigNotFound;
+import com.antonio32a.core.api.map.exceptions.MapPointsConfigParseException;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;

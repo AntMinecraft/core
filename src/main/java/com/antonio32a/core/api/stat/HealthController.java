@@ -1,4 +1,4 @@
-package com.antonio32a.core.controller;
+package com.antonio32a.core.api.stat;
 
 import com.antonio32a.core.event.AsyncClientboundPacketEvent;
 import io.netty.buffer.Unpooled;
