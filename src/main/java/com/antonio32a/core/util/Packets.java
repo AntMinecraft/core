@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class Packets {
+public final class Packets {
     private static final NMSClassResolver RESOLVER = new NMSClassResolver();
     private static final Class<?> SERVER_PLAYER = RESOLVER.resolveSilent("ServerPlayer", "server.level.ServerPlayer");
     private static final Class<?> TEXT_FILTER = RESOLVER.resolveSilent("TextFilter", "server.network.TextFilter");
