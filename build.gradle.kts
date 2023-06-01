@@ -20,19 +20,25 @@ java {
 repositories {
     mavenCentral()
     mavenLocal()
+    maven("https://repo.xenondevs.xyz/releases")
 }
 
 dependencies {
     // Ant
     implementation("com.antonio32a:ant-private-api-data:1.0.0")
 
-    // MC and related utils
+    // Paper
     paperweight.paperDevBundle("1.19.4-R0.1-SNAPSHOT")
+
+    // CommandFramework
     implementation("cloud.commandframework:cloud-core:1.8.3")
     implementation("cloud.commandframework:cloud-annotations:1.8.3")
     implementation("cloud.commandframework:cloud-paper:1.8.3")
     implementation("cloud.commandframework:cloud-minecraft-extras:1.8.3")
     implementation("org.inventivetalent:reflectionhelper:1.18.13-SNAPSHOT")
+
+    // InvUI
+    implementation("xyz.xenondevs.invui:invui:1.5")
 
     // Lombok and misc utils
     compileOnly("org.projectlombok:lombok:1.18.26")

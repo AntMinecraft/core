@@ -7,7 +7,9 @@ import cloud.commandframework.paper.PaperCommandManager;
 import com.antonio32a.core.api.stat.HealthController;
 import com.antonio32a.core.api.stat.HungerController;
 import com.antonio32a.core.command.HungerCommands;
+import com.antonio32a.core.command.ItemCommands;
 import com.antonio32a.core.command.ProfileCommands;
+import com.antonio32a.core.listener.ItemListener;
 import com.antonio32a.core.listener.PacketListener;
 import com.antonio32a.core.listener.PlayerProfileListener;
 import lombok.Getter;
@@ -35,6 +37,7 @@ public final class AntCore extends JavaPlugin {
     private void registerListeners() {
         Bukkit.getPluginManager().registerEvents(new PlayerProfileListener(), this);
         Bukkit.getPluginManager().registerEvents(new PacketListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ItemListener(), this);
         Bukkit.getPluginManager().registerEvents(HungerController.INSTANCE, this);
         Bukkit.getPluginManager().registerEvents(HealthController.INSTANCE, this);
     }
@@ -50,6 +53,7 @@ public final class AntCore extends JavaPlugin {
 
         commandParser.parse(new ProfileCommands());
         commandParser.parse(new HungerCommands());
+        commandParser.parse(new ItemCommands());
     }
 
     @NotNull
