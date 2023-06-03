@@ -20,9 +20,9 @@ public final class UIForwardItem extends PageItem {
         Component lore;
         if (gui.hasNextPage()) {
             lore = Formatting.parse(
-                "<gray>Go to page</gray> <yellow><nextPage></yellow><gray>/</gray><yellow><maxPages></yellow",
-                Placeholder.unparsed("nextPage", String.valueOf(gui.getCurrentPage() + 2)),
-                Placeholder.unparsed("maxPages", String.valueOf(gui.getPageAmount()))
+                "<gray>Go to page</gray> <yellow><next_page></yellow><gray>/</gray><yellow><max_pages></yellow>",
+                Placeholder.unparsed("next_page", String.valueOf(gui.getCurrentPage() + 2)),
+                Placeholder.unparsed("max_pages", String.valueOf(gui.getPageAmount()))
             );
         } else {
             lore = Formatting.parse("<red>There are no more pages</red>");

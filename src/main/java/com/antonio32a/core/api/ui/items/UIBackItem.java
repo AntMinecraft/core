@@ -20,9 +20,9 @@ public final class UIBackItem extends PageItem {
         Component lore;
         if (gui.hasPreviousPage()) {
             lore = Formatting.parse(
-                "<gray>Go to page</gray> <yellow><nextPage></yellow><gray>/</gray><yellow><maxPages></yellow",
-                Placeholder.unparsed("nextPage", String.valueOf(gui.getCurrentPage())),
-                Placeholder.unparsed("maxPages", String.valueOf(gui.getPageAmount()))
+                "<gray>Go to page</gray> <yellow><next_page></yellow><gray>/</gray><yellow><max_pages></yellow>",
+                Placeholder.unparsed("next_page", String.valueOf(gui.getCurrentPage())),
+                Placeholder.unparsed("max_pages", String.valueOf(gui.getPageAmount()))
             );
         } else {
             lore = Formatting.parse("<red>You can't go further back</red>");
