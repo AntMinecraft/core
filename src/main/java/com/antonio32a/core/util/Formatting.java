@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import lombok.Data;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -14,6 +15,7 @@ import net.minecraft.util.Tuple;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.xenondevs.inventoryaccess.component.AdventureComponentWrapper;
 
 import java.io.InputStream;
 import java.lang.reflect.Type;
@@ -25,6 +27,8 @@ import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
 public final class Formatting {
+    public static final int GUI_TITLE_PREFIX_LENGTH = 8;
+    public static final int GUI_WIDTH = 176;
     private static final Gson gson = new Gson();
     private static final PlainTextComponentSerializer plainTextSerializer = PlainTextComponentSerializer.plainText();
     private static final MiniMessage miniMessage = MiniMessage.builder()
@@ -48,6 +52,17 @@ public final class Formatting {
     }
 
     /**
+     * Parses a string into a component and returns it wrapped in an {@link AdventureComponentWrapper}.
+     *
+     * @param text The string to parse
+     * @return The parsed component wrapped in an {@link AdventureComponentWrapper}
+     */
+    @NotNull
+    public static AdventureComponentWrapper parseUI(@NotNull String text) {
+        return new AdventureComponentWrapper(parse(text));
+    }
+
+    /**
      * Parses a string into a component with resolvers
      *
      * @param text      The string to parse
@@ -57,6 +72,32 @@ public final class Formatting {
     @NotNull
     public static Component parse(@NotNull String text, @NotNull TagResolver... resolvers) {
         return miniMessage.deserialize(text, resolvers);
+    }
+
+    /**
+     * Parses a string into a component and returns it wrapped in an {@link AdventureComponentWrapper}.
+     *
+     * @param text      The string to parse
+     * @param resolvers The resolvers to use
+     * @return The parsed component wrapped in an {@link AdventureComponentWrapper}
+     */
+    @NotNull
+    public static AdventureComponentWrapper parseUI(@NotNull String text, @NotNull TagResolver... resolvers) {
+        return new AdventureComponentWrapper(parse(text, resolvers));
+    }
+
+    /**
+     * Formats a texture which is used in the UI as the title.
+     * By default, the title is moved by 8 pixels to the right, and it's colored gray.
+     * This method will automatically add the spacing to the texture and re-color it back to white.
+     *
+     * @param texture The texture to format.
+     * @return The formatted texture.
+     */
+    @NotNull
+    public static Component formatUITexture(String texture) {
+        return Component.text(Spacing.calculateSpacing(-GUI_TITLE_PREFIX_LENGTH) + texture)
+            .color(NamedTextColor.WHITE);
     }
 
     /**
