@@ -32,7 +32,14 @@ public final class PlayerCache {
     @NotNull
     public CompletableFuture<@Nullable PlayerProfile> getOrFetch(@NotNull UUID uuid) {
         lastAccessed.put(uuid, System.currentTimeMillis());
-        return cache.computeIfAbsent(uuid, ignored -> client.getPlayer(uuid));
+        CompletableFuture<PlayerProfile> cachedFuture = cache.get(uuid);
+        if (cachedFuture != null && !cachedFuture.isCompletedExceptionally()) {
+            return cachedFuture;
+        }
+
+        CompletableFuture<@Nullable PlayerProfile> newFuture = client.getPlayer(uuid);
+        cache.put(uuid, newFuture);
+        return newFuture;
     }
 
     /**
