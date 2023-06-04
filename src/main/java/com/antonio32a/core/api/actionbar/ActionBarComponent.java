@@ -143,7 +143,7 @@ public final class ActionBarComponent {
         int width = Formatting.calculateWidth(component);
         PlayerComponent playerComponent = componentMap.getOrDefault(
             player.getUniqueId(),
-            new PlayerComponent(component, width, defaultPosition, true, false)
+            new PlayerComponent(component, width, defaultPosition, false, false)
         );
 
         playerComponent.setComponent(component);
@@ -160,6 +160,7 @@ public final class ActionBarComponent {
                     formatPositionKey(),
                     defaultPosition
                 );
+
                 playerComponent.setPosition(position);
                 ActionBarController.INSTANCE.rerenderForPlayer(player);
             });
