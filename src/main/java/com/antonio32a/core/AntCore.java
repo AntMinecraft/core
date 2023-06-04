@@ -4,6 +4,7 @@ import cloud.commandframework.annotations.AnnotationParser;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.meta.SimpleCommandMeta;
 import cloud.commandframework.paper.PaperCommandManager;
+import com.antonio32a.core.api.actionbar.ActionBarController;
 import com.antonio32a.core.api.stat.HealthController;
 import com.antonio32a.core.api.stat.HungerController;
 import com.antonio32a.core.command.HungerCommands;
@@ -40,6 +41,7 @@ public final class AntCore extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ItemListener(), this);
         Bukkit.getPluginManager().registerEvents(HungerController.INSTANCE, this);
         Bukkit.getPluginManager().registerEvents(HealthController.INSTANCE, this);
+        Bukkit.getPluginManager().registerEvents(ActionBarController.INSTANCE, this);
     }
 
     private void registerCommands() {
