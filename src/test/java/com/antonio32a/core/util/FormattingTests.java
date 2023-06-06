@@ -1,5 +1,6 @@
 package com.antonio32a.core.util;
 
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -71,6 +72,39 @@ class FormattingTests {
 
         assertEquals("unformatted again", result.get(2).getA());
         assertEquals(Style.empty(), result.get(2).getB());
+    }
+
+    @Test
+    void testSplitComponentInnerFont() {
+        Component component = Formatting.parse("<font:a>test<red>colored test</red></font>");
+        List<Tuple<String, Style>> result = Formatting.splitComponent(component);
+
+        assertEquals("test", result.get(0).getA());
+        assertEquals(Style.style().font(Key.key("a")).build(), result.get(0).getB());
+
+        assertEquals("colored test", result.get(1).getA());
+        assertEquals(Style.style().font(Key.key("a")).color(NamedTextColor.RED).build(), result.get(1).getB());
+    }
+
+    @Test
+    void testSplitComponentInnerStyles() {
+        Component component = Formatting.parse("unformatted<red>red <bold>bold red</bold> red again</red>unformatted again");
+        List<Tuple<String, Style>> result = Formatting.splitComponent(component);
+
+        assertEquals("unformatted", result.get(0).getA());
+        assertEquals(Style.empty(), result.get(0).getB());
+
+        assertEquals("red ", result.get(1).getA());
+        assertEquals(Style.empty().color(NamedTextColor.RED), result.get(1).getB());
+
+        assertEquals("bold red", result.get(2).getA());
+        assertEquals(Style.empty().color(NamedTextColor.RED).decorate(TextDecoration.BOLD), result.get(2).getB());
+
+        assertEquals(" red again", result.get(3).getA());
+        assertEquals(Style.empty().color(NamedTextColor.RED), result.get(3).getB());
+
+        assertEquals("unformatted again", result.get(4).getA());
+        assertEquals(Style.empty(), result.get(4).getB());
     }
 
     @Test

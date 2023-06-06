@@ -2,15 +2,17 @@ package com.antonio32a.core.util;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import kotlin.collections.ArrayDeque;
 import lombok.Data;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.flattener.ComponentFlattener;
+import net.kyori.adventure.text.flattener.FlattenerListener;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.minecraft.util.Tuple;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
@@ -20,17 +22,16 @@ import xyz.xenondevs.inventoryaccess.component.AdventureComponentWrapper;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
 public final class Formatting {
     public static final int GUI_TITLE_PREFIX_LENGTH = 8;
     public static final int GUI_WIDTH = 176;
     private static final Gson gson = new Gson();
-    private static final PlainTextComponentSerializer plainTextSerializer = PlainTextComponentSerializer.plainText();
     private static final MiniMessage miniMessage = MiniMessage.builder()
         .strict(true)
         .tags(TagResolver.standard())
@@ -109,14 +110,36 @@ public final class Formatting {
      */
     @NotNull
     public static List<Tuple<String, Style>> splitComponent(@NotNull Component component) {
-        List<Tuple<String, Style>> result = component.children()
-            .stream()
-            .map(Formatting::splitComponent)
-            .flatMap(List::stream)
-            .collect(Collectors.toList());
+        List<Tuple<String, Style>> result = new ArrayList<>();
+        ArrayDeque<Style> styles = new ArrayDeque<>();
 
-        Component newComponent = component.children(Collections.emptyList());
-        result.add(0, new Tuple<>(plainTextSerializer.serialize(newComponent), newComponent.style()));
+        ComponentFlattener.textOnly().flatten(component, new FlattenerListener() {
+            @Override
+            public void component(@NotNull String text) {
+                if (styles.isEmpty()) {
+                    result.add(0, new Tuple<>(text, Style.empty()));
+                } else {
+                    Style mergedStyle = styles.first();
+                    for (Style style : styles) {
+                        mergedStyle = mergedStyle.merge(style, Style.Merge.Strategy.IF_ABSENT_ON_TARGET);
+                    }
+
+                    result.add(0, new Tuple<>(text, mergedStyle));
+                }
+            }
+
+            @Override
+            public void pushStyle(@NotNull Style style) {
+                styles.add(style);
+            }
+
+            @Override
+            public void popStyle(@NotNull Style style) {
+                styles.removeLastOrNull();
+            }
+        });
+
+        Collections.reverse(result);
         return result;
     }
 
