@@ -42,7 +42,7 @@ public class MapPointLoader {
      * @param name The name of the map point.
      * @return The map point.
      * @throws MapPointNotDefinedException If the map point does not exist or if map points weren't loaded.
-     * @throws IllegalStateException If map points weren't loaded.
+     * @throws IllegalStateException       If map points weren't loaded.
      */
     @NotNull
     public MapPoint getOrThrow(@NotNull String name) {
@@ -72,7 +72,7 @@ public class MapPointLoader {
      * @param name The name of the map point.
      * @return The list of map points.
      * @throws MapPointNotDefinedException If the map point does not exist or if the list is empty.
-     * @throws IllegalStateException If map points weren't loaded.
+     * @throws IllegalStateException       If map points weren't loaded.
      */
     @NotNull
     public List<MapPoint> getMultipleOrThrow(@NotNull String name) {

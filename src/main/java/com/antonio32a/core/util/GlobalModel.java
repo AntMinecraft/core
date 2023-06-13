@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+@Getter
 @AllArgsConstructor
 public enum GlobalModel {
     ARROW_LEFT(Material.DIAMOND, 1),
@@ -16,7 +17,7 @@ public enum GlobalModel {
     CHECKMARK_TRUE(Material.DIAMOND, 5),
     CHECKMARK_FALSE(Material.DIAMOND, 6);
 
-    @Getter private final Material material;
+    private final Material material;
     @Getter private final int customModelData;
 
     @NotNull

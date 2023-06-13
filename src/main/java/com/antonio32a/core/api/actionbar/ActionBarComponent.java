@@ -20,25 +20,26 @@ import java.util.*;
  * Represents a component in the player's action bar.
  */
 @Slf4j
+@Getter
 @RequiredArgsConstructor
 public final class ActionBarComponent {
-    @Getter private final Plugin plugin;
+    private final Plugin plugin;
     /**
      * The name of the component.
      * Used in the settings UI.
      */
-    @Getter private final String name;
+    private final String name;
     /**
      * The default X (left to right) position of the component.
      * Starts from 0 which is the center of the action bar.
      * Players can change this value using the ActionBarSettingsUI.
      */
-    @Getter private final int defaultPosition;
+    private final int defaultPosition;
     /**
      * Should the component be centered around the position.
      */
-    @Getter private final boolean centered;
-    @Getter private final Map<UUID, PlayerComponent> componentMap = new HashMap<>();
+    private final boolean centered;
+    private final Map<UUID, PlayerComponent> componentMap = new HashMap<>();
 
     /**
      * Registers the component.

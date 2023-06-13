@@ -16,12 +16,13 @@ import org.jetbrains.annotations.NotNull;
  * This event will also be fired as soon @{@link org.bukkit.event.player.PlayerLoginEvent} is called,
  * so you can even manipulate packets such as {@link net.minecraft.network.protocol.game.ClientboundLoginPacket}.
  */
+@Getter
 public final class AsyncClientboundPacketEvent extends Event implements Cancellable {
     private static final HandlerList HANDLER_LIST = new HandlerList();
 
-    @Getter private final Player player;
-    @Getter @Setter private Packet<ClientGamePacketListener> packet;
-    @Getter @Setter private boolean cancelled;
+    private final Player player;
+    @Setter private Packet<ClientGamePacketListener> packet;
+    @Setter private boolean cancelled;
 
     public AsyncClientboundPacketEvent(Player player, Packet<ClientGamePacketListener> packet) {
         super(true);

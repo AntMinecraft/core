@@ -3,12 +3,15 @@ package com.antonio32a.core.util;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 
+// Unicodes in this case are better as \uAAAAAA because that's how they're represented in the pack
+@SuppressWarnings("UnnecessaryUnicodeEscape")
+@Getter
 public enum GlobalUnicode {
     ACTIONBAR_SETTINGS('\uFA00');
 
-    @Getter private final char character;
-    @Getter private final int width;
-    @Getter private final int border;
+    private final char character;
+    private final int width;
+    private final int border;
 
     GlobalUnicode(char character, int border) {
         this.character = character;

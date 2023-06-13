@@ -18,6 +18,7 @@ public class MapPoint {
 
     /**
      * Returns a Bukkit Location from this MapPoint.
+     *
      * @return Bukkit Location.
      */
     public Location getLocation() {

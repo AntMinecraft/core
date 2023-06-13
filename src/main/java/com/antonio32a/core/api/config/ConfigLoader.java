@@ -11,11 +11,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+@Getter
 @Slf4j
 public final class ConfigLoader {
     public static final ConfigLoader INSTANCE = new ConfigLoader();
-
-    @Getter private final Config config;
+    private final Config config;
 
     ConfigLoader() {
         this.config = this.loadConfig();

@@ -15,12 +15,13 @@ import org.jetbrains.annotations.NotNull;
  * You can modify the packet or cancel the event to prevent the packet from being received.
  * This event will also be fired as soon @{@link org.bukkit.event.player.PlayerLoginEvent} is called.
  */
+@Getter
 public final class AsyncServerboundPacketEvent extends Event implements Cancellable {
     private static final HandlerList HANDLER_LIST = new HandlerList();
 
-    @Getter private final Player player;
-    @Getter @Setter private Packet<ServerGamePacketListener> packet;
-    @Getter @Setter private boolean cancelled;
+    private final Player player;
+    @Setter private Packet<ServerGamePacketListener> packet;
+    @Setter private boolean cancelled;
 
     public AsyncServerboundPacketEvent(Player player, Packet<ServerGamePacketListener> packet) {
         super(true);

@@ -16,10 +16,11 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@Getter
 public final class GameItemInteractEvent extends PlayerInteractEvent implements Cancellable {
     private static final HandlerList HANDLER_LIST = new HandlerList();
-    @Getter private final GameItem gameItem;
-    @Getter @Setter private boolean cancelled;
+    private final GameItem gameItem;
+    @Setter private boolean cancelled;
 
     public GameItemInteractEvent(
         @NotNull Player who,

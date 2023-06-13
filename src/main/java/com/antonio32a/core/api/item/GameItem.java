@@ -24,6 +24,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+// This inspection doesn't make sense since we only want the getter for the id
+@SuppressWarnings("LombokGetterMayBeUsed")
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class GameItem implements Listener {
     public static final NamespacedKey ID_KEY = new NamespacedKey("ant", "item.id");
